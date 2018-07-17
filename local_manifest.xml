@@ -26,19 +26,7 @@
           fetch="https://github.com/aosp-tissot/"
           revision="refs/heads/aosp-8.1" />
 
-  <project path="kernel/xiaomi/msm8953" name="PixelExperience-Devices/android_kernel_xiaomi_msm8953" remote="github" revision="oreo-mr1" />
-  <project path="device/xiaomi/tissot" name="PixelExperience-Devices/android_device_xiaomi_tissot" remote="github" revision="oreo-mr1" />
-  <project path="vendor/xiaomi/tissot" name="aosp-tissot/android_vendor_xiaomi_tissot" remote="github" revision="8.1" />
-
-<!--  <project path="device/lge/mako" name="sooti/android_device_lge_mako" remote="github" revision="oreo-mr1" />
-  <project path="vendor/lge" name="TheMuppets/proprietary_vendor_lge" remote="github" revision="lineage-15.1" />
-  <project path="kernel/lg/mako" name="LineageOS/android_kernel_lge_mako" remote="github" revision="lineage-15.1" />
-
-  <project path="device/lge/hammerhead" name="sooti/device_lge_hammerhead" remote="github" revision="oreo-m1" />
-  <project path="kernel/lge/hammerhead" name="Krizthian/android_kernel_lge_hammerhead" remote="github" revision="lineage-15.1" />  -->
-
-
-<!--<project path="vendor/hardware_overlay" name="vendor_hardware_overlay" remote="phh" revision="master" />
+<project path="vendor/hardware_overlay" name="vendor_hardware_overlay" remote="phh" revision="master" />
 <project path="device/phh/treble" name="aosp-tissot/device_phh_treble" remote="github" revision="oreo-mr1" />
 <project path="vendor/vndk" name="vendor_vndk" remote="phh" revision="master" />
 <project path="vendor/vndk-tests" name="vendor_vndk-tests" remote="phh" revision="master" />
@@ -57,10 +45,10 @@
  <project path="external/exfat" name="android_external_exfat" remote="LineageOS" /> 
 
   <project path="external/fuse" name="android_external_fuse" remote="LineageOS" />
-  <project path="external/ntfs-3g" name="android_external_ntfs-3g" remote="LineageOS" /> -->
+  <project path="external/ntfs-3g" name="android_external_ntfs-3g" remote="LineageOS" />
 
   <!-- Device repos -->
-<!--  <remove-project name="platform/frameworks/base" />
+  <remove-project name="platform/frameworks/base" />
   <remove-project name="platform/hardware/interfaces" />
   <remove-project name="platform/frameworks/av" />
   <remove-project name="platform/system/vold" />
@@ -150,12 +138,12 @@
   <project path="frameworks/base" name="frameworks_base" groups="pdk-cw-fs,pdk-fs" remote="aosp-tissot"  />
   <project path="hardware/interfaces" name="hardware_interfaces" groups="pdk" remote="aosp-tissot" />
   <project path="system/vold" name="platform_system_vold" groups="pdk" remote="aosp-tissot" />
-  <project path="system/extras" name="system_extras" groups="pdk" remote="aosp-tissot" /> -->
+  <project path="system/extras" name="system_extras" groups="pdk" remote="aosp-tissot" />
 
   <!-- General repos -->
-<!--  <project path="vendor/opengapps/build" name="vendor_opengapps_build" remote="pixel" />
+  <project path="vendor/opengapps/build" name="vendor_opengapps_build" remote="pixel" />
   <project path="vendor/opengapps/sources/all" name="all" clone-depth="1" revision="master" remote="opengapps" />
   <project path="vendor/opengapps/sources/arm" name="arm" clone-depth="1" revision="master" remote="opengapps" />
-  <project path="vendor/opengapps/sources/arm64" name="arm64" clone-depth="1" revision="master" remote="opengapps" /> -->
+  <project path="vendor/opengapps/sources/arm64" name="arm64" clone-depth="1" revision="master" remote="opengapps" />
 
 </manifest>
