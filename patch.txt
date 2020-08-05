@@ -1,0 +1,184 @@
+diff --git a/build/make/target/product/AndroidProducts.mk b/build/make/target/product/AndroidProducts.mk
+index cfb893082..b8f4b184f 100644
+--- a/build/make/target/product/AndroidProducts.mk
++++ b/build/make/target/product/AndroidProducts.mk
+@@ -34,8 +34,6 @@
+ # Unbundled apps will be built with the most generic product config.
+ ifneq ($(TARGET_BUILD_APPS),)
+ PRODUCT_MAKEFILES := \
+-    $(LOCAL_DIR)/aosp_arm64.mk \
+-    $(LOCAL_DIR)/aosp_arm.mk \
+     $(LOCAL_DIR)/aosp_x86_64.mk \
+     $(LOCAL_DIR)/aosp_x86.mk \
+     $(LOCAL_DIR)/full.mk \
+@@ -43,10 +41,6 @@ PRODUCT_MAKEFILES := \
+ 
+ else
+ PRODUCT_MAKEFILES := \
+-    $(LOCAL_DIR)/aosp_arm64_ab.mk \
+-    $(LOCAL_DIR)/aosp_arm64.mk \
+-    $(LOCAL_DIR)/aosp_arm_ab.mk \
+-    $(LOCAL_DIR)/aosp_arm.mk \
+     $(LOCAL_DIR)/aosp_x86_64_ab.mk \
+     $(LOCAL_DIR)/aosp_x86_64.mk \
+     $(LOCAL_DIR)/aosp_x86_ab.mk \
+@@ -71,7 +65,5 @@ PRODUCT_MAKEFILES := \
+ endif
+ 
+ COMMON_LUNCH_CHOICES := \
+-    aosp_arm64-eng \
+-    aosp_arm-eng \
+     aosp_x86_64-eng \
+     aosp_x86-eng \
+diff --git a/build/make/target/product/aosp_arm.mk b/build/make/target/product/aosp_arm.mk
+deleted file mode 100644
+index 0fdd31377..000000000
+--- a/build/make/target/product/aosp_arm.mk
++++ /dev/null
+@@ -1,42 +0,0 @@
+-#
+-# Copyright 2017 The Android Open-Source Project
+-#
+-# Licensed under the Apache License, Version 2.0 (the "License");
+-# you may not use this file except in compliance with the License.
+-# You may obtain a copy of the License at
+-#
+-#      http://www.apache.org/licenses/LICENSE-2.0
+-#
+-# Unless required by applicable law or agreed to in writing, software
+-# distributed under the License is distributed on an "AS IS" BASIS,
+-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-# See the License for the specific language governing permissions and
+-# limitations under the License.
+-#
+-
+-PRODUCT_USE_DYNAMIC_PARTITIONS := true
+-
+-# The system image of aosp_arm-userdebug is a GSI for the devices with:
+-# - ARM 32 bits user space
+-# - 64 bits binder interface
+-# - system-as-root
+-# - VNDK enforcement
+-# - compatible property override enabled
+-
+-# GSI for system/product
+-$(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_common.mk)
+-
+-# Enable mainline checking for excat this product name
+-ifeq (aosp_arm,$(TARGET_PRODUCT))
+-PRODUCT_ENFORCE_ARTIFACT_PATH_REQUIREMENTS := relaxed
+-endif
+-
+-# Emulator for vendor
+-$(call inherit-product-if-exists, device/generic/goldfish/arm32-vendor.mk)
+-$(call inherit-product, $(SRC_TARGET_DIR)/product/emulator_vendor.mk)
+-$(call inherit-product, $(SRC_TARGET_DIR)/board/generic_x86/device.mk)
+-
+-PRODUCT_NAME := aosp_arm
+-PRODUCT_DEVICE := generic
+-PRODUCT_BRAND := Android
+-PRODUCT_MODEL := AOSP on ARM32
+diff --git a/build/make/target/product/aosp_arm64.mk b/build/make/target/product/aosp_arm64.mk
+deleted file mode 100644
+index 8ef2023e6..000000000
+--- a/build/make/target/product/aosp_arm64.mk
++++ /dev/null
+@@ -1,60 +0,0 @@
+-#
+-# Copyright (C) 2017 The Android Open-Source Project
+-#
+-# Licensed under the Apache License, Version 2.0 (the "License");
+-# you may not use this file except in compliance with the License.
+-# You may obtain a copy of the License at
+-#
+-#      http://www.apache.org/licenses/LICENSE-2.0
+-#
+-# Unless required by applicable law or agreed to in writing, software
+-# distributed under the License is distributed on an "AS IS" BASIS,
+-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-# See the License for the specific language governing permissions and
+-# limitations under the License.
+-#
+-
+-PRODUCT_USE_DYNAMIC_PARTITIONS := true
+-
+-# The system image of aosp_arm64-userdebug is a GSI for the devices with:
+-# - ARM 64 bits user space
+-# - 64 bits binder interface
+-# - system-as-root
+-# - VNDK enforcement
+-# - compatible property override enabled
+-
+-# This is a build configuration for a full-featured build of the
+-# Open-Source part of the tree. It's geared toward a US-centric
+-# build quite specifically for the emulator, and might not be
+-# entirely appropriate to inherit from for on-device configurations.
+-
+-# GSI for system/product
+-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+-$(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_common.mk)
+-
+-# Emulator for vendor
+-$(call inherit-product-if-exists, device/generic/goldfish/arm64-vendor.mk)
+-$(call inherit-product, $(SRC_TARGET_DIR)/product/emulator_vendor.mk)
+-$(call inherit-product, $(SRC_TARGET_DIR)/board/generic_arm64/device.mk)
+-
+-# Enable mainline checking for excat this product name
+-ifeq (aosp_arm64,$(TARGET_PRODUCT))
+-PRODUCT_ENFORCE_ARTIFACT_PATH_REQUIREMENTS := relaxed
+-endif
+-
+-PRODUCT_ARTIFACT_PATH_REQUIREMENT_WHITELIST += \
+-    root/init.zygote32_64.rc \
+-    root/init.zygote64_32.rc \
+-
+-# Copy different zygote settings for vendor.img to select by setting property
+-# ro.zygote=zygote64_32 or ro.zygote=zygote32_64:
+-#   1. 64-bit primary, 32-bit secondary OR
+-#   2. 32-bit primary, 64-bit secondary
+-# init.zygote64_32.rc is in the core_64_bit.mk below
+-PRODUCT_COPY_FILES += \
+-    system/core/rootdir/init.zygote32_64.rc:root/init.zygote32_64.rc
+-
+-PRODUCT_NAME := aosp_arm64
+-PRODUCT_DEVICE := generic_arm64
+-PRODUCT_BRAND := Android
+-PRODUCT_MODEL := AOSP on ARM64
+diff --git a/system/sepolicy/Android.mk b/system/sepolicy/Android.mk
+index dadd7b0a..e8c09335 100644
+--- a/system/sepolicy/Android.mk
++++ b/system/sepolicy/Android.mk
+@@ -83,9 +83,9 @@ endif
+ 
+ NEVERALLOW_ARG :=
+ ifeq ($(SELINUX_IGNORE_NEVERALLOWS),true)
+-ifeq ($(TARGET_BUILD_VARIANT),user)
+-$(error SELINUX_IGNORE_NEVERALLOWS := true cannot be used in user builds)
+-endif
++#ifeq ($(TARGET_BUILD_VARIANT),user)
++#$(error SELINUX_IGNORE_NEVERALLOWS := true cannot be used in user builds)
++#endif
+ $(warning Be careful when using the SELINUX_IGNORE_NEVERALLOWS flag. \
+           It does not work in user builds and using it will \
+           not stop you from failing CTS.)
+@@ -978,13 +978,13 @@ $(built_sepolicy_neverallows)
+ 	@mkdir -p $(dir $@)
+ 	$(hide) $< -m -M true -G -c $(POLICYVERS) $(PRIVATE_NEVERALLOW_ARG) $(PRIVATE_CIL_FILES) -o $@.tmp -f /dev/null
+ 	$(hide) $(HOST_OUT_EXECUTABLES)/sepolicy-analyze $@.tmp permissive > $@.permissivedomains
+-	$(hide) if [ "$(TARGET_BUILD_VARIANT)" = "user" -a -s $@.permissivedomains ]; then \
+-		echo "==========" 1>&2; \
+-		echo "ERROR: permissive domains not allowed in user builds" 1>&2; \
+-		echo "List of invalid domains:" 1>&2; \
+-		cat $@.permissivedomains 1>&2; \
+-		exit 1; \
+-		fi
++#	$(hide) if [ "$(TARGET_BUILD_VARIANT)" = "user" -a -s $@.permissivedomains ]; then \
++#		echo "==========" 1>&2; \
++#		echo "ERROR: permissive domains not allowed in user builds" 1>&2; \
++#		echo "List of invalid domains:" 1>&2; \
++#		cat $@.permissivedomains 1>&2; \
++#		exit 1; \
++#		fi
+ 	$(hide) mv $@.tmp $@
+ 
+ built_sepolicy := $(LOCAL_BUILT_MODULE)
