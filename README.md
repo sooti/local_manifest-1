@@ -11,8 +11,9 @@ for example for an arm64 device with pie and newer vendor (like curtana or tisso
 the script will download the target aosp in the script, download all the patches, patch the repos, build and finally compress the system.img, output will be in the aosp directory,
 file called 'system.img.xz
 
-build.sh switches:
-'new':this mode must be run the first time you run the script, followed by the build type you want
+build.sh switches: 
+
+'new': this mode must be run the first time you run the script, followed by the build type you want
 'CLEAN': this will just clean the system output, its not a full clean but good enough for incremental builds. this must also be run everytime to avoid issues. (won't change build time almost at all)
 
 Build.sh Device types:
