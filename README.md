@@ -14,7 +14,7 @@ file called 'system.img.xz
 build.sh switches: 
 
 'new': this mode must be run the first time you run the script, followed by the build type you want
-'CLEAN': this will just clean the system output, its not a full clean but good enough for incremental builds. this must also be run everytime to avoid issues. (won't change build time almost at all)
+'clean': this will just clean the system output, its not a full clean but good enough for incremental builds. this must also be run everytime to avoid issues. (won't change build time almost at all)
 
 Build.sh Device types:
 'arm64-gapps': builds a gsi with gapps for arm64 devices with pie vendor and newer
