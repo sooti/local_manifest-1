@@ -17,7 +17,11 @@ build.sh switches:
 'clean': this will just clean the system output, its not a full clean but good enough for incremental builds. this must also be run everytime to avoid issues. (won't change build time almost at all)
 
 Build.sh Device types:
+
 'arm64-gapps': builds a gsi with gapps for arm64 devices with pie vendor and newer
+
 'arm64-gapps-go': android go build for arm64 with gapps go
+
 'arm32-gapps-go': android go build for arm32 with gapps go
+
 'arm64-vanilla': GSI arm64 vanilla (no gapps)
