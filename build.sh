@@ -1,3 +1,4 @@
+
 #!/bin/bash
 set -e
 if [ "$2" == "new" ];then
@@ -8,13 +9,17 @@ if [ "$2" == "new" ];then
   wget https://raw.githubusercontent.com/aosp-tissot/local_manifest/aosp-10.0/patch.zip
   unzip ./patches.zip
   unzip ./patch.zip
-repo sync -c -j 16 -f --force-sync --no-tag --no-clone-bundle --optimized-fetch --prune
+  repo sync -c -j 16 -f --force-sync --no-tag --no-clone-bundle --optimized-fetch --prune
 fi
 if [ "$1" == "clean" ];then
   repo forall -c 'git reset --hard ; git clean -fdx'
-  rm patches.zip
-  rm -rf patches
-  wget https://github.com/phhusson/treble_experimentations/releases/download/v2/patches.zip
+  if [ -f "patches.zip" ]; then
+     rm patches.zip
+  fi
+  if [ -d "patches" ]; then
+     rm -rf patches
+  fi
+  wget https://github.com/phhusson/treble_experimentations/releases/download/v222/patches.zip
   unzip ./patches.zip
   repo sync -c -j 16 -f --force-sync --no-tag --no-clone-bundle --optimized-fetch --prune
 fi
@@ -40,12 +45,11 @@ if [ "$2" == "arm64-gapps-go" ];then
    lunch treble_arm64_boN-user
 fi
 if [ "$2" == "arm32-gapps-go" ];then
-treble_arm_aoN-user
+   lunch treble_arm_aoN-user
 fi
 if [ "$2" == "arm64-vanilla" ];then
-treble_arm_aoN-user
+   lunch treble_arm64_bvN-user
 fi
-treble_arm64_bvN
 if [ "$1" == "clean" ];then
    make installclean
 fi
