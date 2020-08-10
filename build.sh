@@ -4,7 +4,7 @@ if [ "$2" == "new" ];then
   repo init -u https://android.googlesource.com/platform/manifest -b android-10.0.0_r41
   wget https://github.com/aosp-tissot/local_manifest/raw/aosp-10.0/local_manifest.xml .repo/local_manifest.xml
   wget https://raw.githubusercontent.com/aosp-tissot/local_manifest/aosp-10.0/patch.sh
-  wget https://github.com/phhusson/treble_experimentations/releases/download/v217/patches.zip
+  wget https://github.com/phhusson/treble_experimentations/releases/download/v222/patches.zip
   wget https://raw.githubusercontent.com/aosp-tissot/local_manifest/aosp-10.0/patch.zip
   unzip ./patches.zip
   unzip ./patch.zip
