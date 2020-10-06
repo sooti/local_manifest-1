@@ -1,15 +1,3 @@
-build.sh
-Today
-7:12 PM
-A
-You edited an item
-Text
-build.sh
-7:00 PM
-A
-You uploaded an item
-Text
-build.sh
 #!/bin/bash
 set -e
 if [ "$1" == "new" ] || [ "$2" == "new" ];then
