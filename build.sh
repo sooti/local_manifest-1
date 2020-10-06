@@ -1,5 +1,10 @@
 build.sh
 Today
+7:12 PM
+A
+You edited an item
+Text
+build.sh
 7:00 PM
 A
 You uploaded an item
@@ -10,9 +15,9 @@ set -e
 if [ "$1" == "new" ] || [ "$2" == "new" ];then
   repo init -u https://android.googlesource.com/platform/manifest -b android-11.0.0_r5
   wget https://github.com/aosp-tissot/local_manifest/raw/aosp-10.0/local_manifest.xml .repo/local_manifest.xml
-  wget https://raw.githubusercontent.com/aosp-tissot/local_manifest/aosp-10.0/patch.sh
+  wget https://raw.githubusercontent.com/aosp-tissot/local_manifest/aosp-11.0/patch.sh
   wget https://github.com/phhusson/treble_experimentations/releases/download/v300.f/patches.zip
-  wget https://raw.githubusercontent.com/aosp-tissot/local_manifest/aosp-10.0/patch.zip
+  wget https://raw.githubusercontent.com/aosp-tissot/local_manifest/aosp-11.0/patch.zip
   unzip ./patches.zip
   unzip ./patch.zip
   repo sync -c -j 16 -f --force-sync --no-tag --no-clone-bundle --optimized-fetch --prune
@@ -70,3 +75,4 @@ if [ "$1" == "clean" ];then
    make installclean
 fi
 make -j16 systemimage
+xz -c -v ./out/target/product/phhgsi_arm64_ab/system.img -T8 > system.img.xz
