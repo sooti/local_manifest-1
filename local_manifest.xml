@@ -107,3 +107,4 @@
   <remove-project name="platform/prebuilts/python/darwin-x86/2.7.5" />
   <remove-project name="platform/packages/apps/Tag" />
   <remove-project name="kernel/tests" />
+</manifest>
