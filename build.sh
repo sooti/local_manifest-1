@@ -2,7 +2,7 @@
 set -e
 if [ "$1" == "new" ] || [ "$2" == "new" ];then
   repo init -u https://android.googlesource.com/platform/manifest -b android-11.0.0_r5
-  wget https://github.com/aosp-tissot/local_manifest/raw/aosp-10.0/local_manifest.xml .repo/local_manifest.xml
+  wget https://github.com/aosp-tissot/local_manifest/raw/aosp-11.0/local_manifest.xml .repo/local_manifest.xml
   wget https://raw.githubusercontent.com/aosp-tissot/local_manifest/aosp-11.0/patch.sh
   wget https://github.com/phhusson/treble_experimentations/releases/download/v300.f/patches.zip
   wget https://raw.githubusercontent.com/aosp-tissot/local_manifest/aosp-11.0/patch.zip
